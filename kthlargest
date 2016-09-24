@@ -1,0 +1,52 @@
+    void bubbleup(vector<int> &vec, int index)
+    {
+        int parent_indx=0;
+        parent_indx=index%2==0?(index/2)-1:index/2;
+        if(vec[index]<vec[parent_indx])
+        {
+            int temp;
+            temp=vec[index];
+            vec[index]=vec[parent_indx];
+            vec[parent_indx]=temp;
+            bubleup(vec,parent_indx);
+        }
+        return;
+    }
+    void bubbledown(vector<int> &vec, int index)
+    {
+        int lc=2*index+1;
+        int rc=2*index+2;
+        int n=vec.size();
+        if(lc||)
+        if(vec[index]>vec[lc]||vec[index]>vec[rc])
+        {
+            int small_index=vec[lc]<vec[rc]?lc:rc;
+            int temp;
+            temp=vec[index];
+            vec[index]=vec[small_index];
+            vec[small_index]=temp;
+            bubbledown(vec,small_index);
+        }
+    }
+    int findKthLargest(vector<int>& nums, int k) {
+        int i,n;
+        n=nums.size();
+        vector<int> vec(k,0);
+        for(i=0;i<n;i++)
+        {
+            if(i<k)
+            {
+                vec[i]=nums[i];
+                bubbleup(vec,i);
+            }
+            else
+            {
+                if(nums[i]>vec[0])
+                {
+                    vec[0]=nums[i];
+                    bubbledown(vec,0);
+                }
+            }
+        }
+        return vec[0];
+    }
